@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Crop Recommendation - Mkulima Track{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-seedling me-2"></i>Crop Recommendation Tool</h3>
+            </div>
+            <div class="card-body p-4">
+                <p class="lead mb-4">Get personalized crop recommendations based on your farm's location and soil type.</p>
+                
+                <form method="post" action="{% url 'crop_recommendation' %}">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="location" class="form-label fw-bold">Farm Location</label>
+                            <select class="form-select" id="location" name="location" required>
+                                <option value="" selected disabled>Select your region</option>
+                                <option value="Central Kenya">Central Kenya</option>
+                                <option value="Rift Valley">Rift Valley</option>
+                                <option value="Western Kenya">Western Kenya</option>
+                                <option value="Nyanza">Nyanza</option>
+                                <option value="Eastern Kenya">Eastern Kenya</option>
+                                <option value="Coastal Kenya">Coastal Kenya</option>
+                                <option value="North Eastern">North Eastern</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="soil" class="form-label fw-bold">Soil Type</label>
+                            <select class="form-select" id="soil" name="soil" required>
+                                <option value="" selected disabled>Select soil type</option>
+                                <option value="Loam">Loam (Best for most crops)</option>
+                                <option value="Clay">Clay</option>
+                                <option value="Sandy">Sandy</option>
+                                <option value="Volcanic">Volcanic</option>
+                                <option value="Red">Red Soil</option>
+                                <option value="Black Cotton">Black Cotton</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="rainfall" class="form-label fw-bold">Annual Rainfall (mm)</label>
+                            <input type="number" class="form-control" id="rainfall" name="rainfall" 
+                                   placeholder="e.g., 800" min="300" max="3000">
+                            <div class="form-text">Optional: For more accurate recommendations</div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="altitude" class="form-label fw-bold">Altitude (meters)</label>
+                            <input type="number" class="form-control" id="altitude" name="altitude" 
+                                   placeholder="e.g., 1500" min="0" max="3000">
+                            <div class="form-text">Optional: Meters above sea level</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-search me-2"></i>Get Crop Recommendations
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-4 pt-3 border-top">
+                    <h5><i class="fas fa-info-circle text-success me-2"></i>How It Works</h5>
+                    <p class="mb-0">Our recommendation system analyzes your location, soil type, and other factors to suggest the most suitable crops for maximum yield and minimal risk.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

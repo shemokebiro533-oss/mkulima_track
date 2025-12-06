@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Mkulima Track{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-success mb-4">Welcome to Mkulima Track</h1>
+                <p class="lead mb-4">
+                    Your digital companion for smarter farming decisions. Get personalized crop recommendations, 
+                    weather insights, and livestock care guidance tailored to your farm.
+                </p>
+                <div class="d-grid gap-2 d-md-flex">
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'register' %}" class="btn btn-success btn-lg px-4">
+                        <i class="fas fa-user-plus me-2"></i> Get Started Free
+                    </a>
+                    {% else %}
+                    <a href="{% url 'dashboard' %}" class="btn btn-success btn-lg px-4">
+                        <i class="fas fa-tachometer-alt me-2"></i> Go to Dashboard
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'about' %}" class="btn btn-outline-success btn-lg px-4">
+                        <i class="fas fa-info-circle me-2"></i> Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{% static 'images/download.jpg' %}" alt="Farmer with technology" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">How Mkulima Track Helps Farmers</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-map-marked-alt fa-3x text-success"></i>
+                        </div>
+                        <h4 class="card-title">Smart Crop Planning</h4>
+                        <p class="card-text">
+                            Get personalized crop recommendations based on your location, 
+                            soil type, and weather patterns.
+                        </p>
+                        <a href="{% url 'crop_recommendation' %}" class="btn btn-outline-success">Try Crop Planner</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-cloud-sun-rain fa-3x text-success"></i>
+                        </div>
+                        <h4 class="card-title">Weather Intelligence</h4>
+                        <p class="card-text">
+                            Access accurate weather forecasts and planting advisories 
+                            for your specific location.
+                        </p>
+                        <a href="{% url 'weather_forecast' %}" class="btn btn-outline-success">View Weather</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-horse-head fa-3x text-success"></i>
+                        </div>
+                        <h4 class="card-title">Livestock Care</h4>
+                        <p class="card-text">
+                            Connect with veterinary services and get alerts for 
+                            common animal diseases in your area.
+                        </p>
+                        <a href="#" class="btn btn-outline-success">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">What Farmers Say</h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">"Mkulima Track helped me increase my maize yield by 40%!"</p>
+                        <footer class="blockquote-footer">John from Kiambu</footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">"The weather forecasts are accurate and have saved my crops twice."</p>
+                        <footer class="blockquote-footer">Mary from Nakuru</footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">"Easy to use even for someone not good with technology."</p>
+                        <footer class="blockquote-footer">Peter from Eldoret</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
