@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login  # Rename Django's login
+from django.contrib.auth import logout as auth_logout  # Rename Django's logout
 
 def home(request):
     """Home page view"""
@@ -43,13 +45,38 @@ def register(request):
         try:
             user = User.objects.create_user(username=username, email=email, password=password1)
             user.save()
-            login(request, user)
+            auth_login(request, user)  # Use renamed auth_login
             messages.success(request, f'Welcome {username}! Registration successful.')
             return redirect('dashboard')
         except Exception as e:
             messages.error(request, f'Error: {str(e)}')
     
     return render(request, 'core/register.html')
+
+def user_login(request):  # Don't name this 'login' or 'django_login'
+    """Custom login view"""
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            auth_login(request, user)  # Use renamed auth_login
+            messages.success(request, f'Welcome back {username}!')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid username or password')
+    
+    return render(request, 'core/login.html')
+
+def user_logout(request):  # Don't name this 'logout' or 'django_logout'
+    """Custom logout view"""
+    auth_logout(request)  # Use renamed auth_logout
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('home')
 
 @login_required
 def dashboard(request):
